@@ -1,4 +1,6 @@
-React component for displaying ASU News articles from the asunow.asu.edu [JSON feed](https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences). This React component can be used as a stand alone component and it has also been optimized for working inside of a drupal environment.
+React component for displaying ASU News articles from the asunow.asu.edu [JSON feed](https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences). This React component can be used as a stand alone component and it has also been optimized for working inside of a Drupal environment.
+
+### Demo: [ASU News Feed](https://codepen.io/rbruce2/pen/KerjBm)
 
 ## Install (Stand Alone)
 * `git clone https://github.com/ASU-CLAS/asu-react-d8news.git`
