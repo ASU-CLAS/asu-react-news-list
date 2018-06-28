@@ -3,7 +3,7 @@ React component for displaying ASU News articles from the asunow.asu.edu [JSON f
 ## Install (Stand Alone)
 * `git clone https://github.com/ASU-CLAS/asu-react-d8news.git`
 * `yarn` - install all dependencies
-* `yarn build` - build project files (Includes React Library)
+* `yarn build` - build project files (Includes React Library- will need to install Bootstrap v4 separately )
 
 
 ## Install (Drupal)
@@ -20,7 +20,7 @@ my-module/
   react-component/
 ```
 
-Contents of this repository should go inside the `react-component` folder so that when `yarn drupal` executes the bundled files are copied to the correct `css` and `js` folders.
+Contents of this repository should go inside the `react-component/` folder so that when `yarn drupal` executes the bundled files are copied to the correct `css/` and `js/` folders.
 
 
 ## Rendering the component
@@ -28,7 +28,7 @@ Contents of this repository should go inside the `react-component` folder so tha
 This React component will render inside an element with a class name of `clas-news-react-base`. The component requires the following options:
 
 | Parameter     |  Options |
-| ------------- | ------:|
+| ------------- | :------|
 | data-feed      | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences) |
 | data-items      | string of feed items to display (All or Three ) |
 
