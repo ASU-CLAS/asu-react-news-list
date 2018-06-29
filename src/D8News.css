@@ -1,3 +1,28 @@
 #D8News {
   /* background-color: #000; */
 }
+
+.card{
+  margin-bottom: 25px;
+}
+
+.cardBody{
+  border-top: solid green 8px;
+}
+
+.cardInterest{
+    position: relative;
+    top: -54px;
+    margin: 16px;
+    padding: 2px;
+    border-radius: 14px;
+    text-align: center;
+    display: inherit;
+    color: white;
+    background-color: green;
+    font-weight: 300;
+}
+
+.card-title{
+  margin-top: -47px;
+}
