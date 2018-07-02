@@ -46,14 +46,16 @@ class D8News extends Component {
               {results.map(( listNode, index ) => {
 
                 return(
-                      <div className="col-12 col-md-4" key={listNode.nid}>
-                        <div className="card">
-                          <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                          <div className="card-body cardBody">
-                            <span className="cardInterest">{listNode.interests}</span>
-                            <h5 className="card-title">{listNode.title}</h5>
+                      <div className="col-12 col-md-4 zoom" key={listNode.nid}>
+                        <a href={listNode.path}>
+                          <div className="card">
+                            <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
+                            <div className="card-body cardBody">
+                              <span className="cardInterest">{listNode.interests ? listNode.interests : 'ASU News'}</span>
+                              <h5 className="card-title">{listNode.title}</h5>
+                            </div>
                           </div>
-                        </div>
+                        </a>
                       </div>
 
 

@@ -26,3 +26,16 @@
 .card-title{
   margin-top: -47px;
 }
+
+.zoom{
+  cursor: pointer;
+}
+
+.zoom a{
+  text-decoration: none;
+  color: #353535;
+}
+
+.zoom:hover {
+    transform: scale(1.03); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
