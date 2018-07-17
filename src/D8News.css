@@ -33,6 +33,34 @@
     transform: scale(1.015);
 }
 
+.loader{
+  text-align: center;
+  margin-top: 35px;
+}
+
+.fade-enter-done{
+  opacity: 1;
+}
+
+.fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.fade-enter {
+  opacity: 1;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
 
 /* SAF tag style settings */
 .discoveries{

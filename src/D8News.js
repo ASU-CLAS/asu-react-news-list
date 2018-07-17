@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './D8News.css';
+import Loader from 'react-loader-spinner';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class D8News extends Component {
 
   state = {
-    ourData: []
+    ourData: [],
+    isLoaded: false
   };
 
   componentDidMount() {
@@ -13,6 +16,7 @@ class D8News extends Component {
     axios.get(feedURL).then(response => {
           this.setState({
             ourData: response.data.nodes,
+            isLoaded: true
           })
     })
   }
@@ -74,37 +78,55 @@ class D8News extends Component {
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items)
+    const newsItems = results.map(( listNode, index ) => {
+      return(
+        <CSSTransitionGroup
+          key={listNode.nid}
+          timeout={300}
+          appear={true}
+          enter={true}
+          classNames="fade"
+        >
+          <div className="col-12 col-md-4 mb-4 zoom fade">
+            <a href={listNode.path}>
+              <div className="card h-100">
+                <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
+                <div className={this.setSafPath(listNode.saf) + " card-body cardBody"}>
+                  <a href={listNode.saf ? "//asunow.asu.edu/topics/now/" + this.setSafPath(listNode.saf) : "//asunow.asu.edu/topics/news/saf/asu-news" }><span className={this.setSafPath(listNode.saf) + "Int cardInterest"}>{listNode.saf ? listNode.saf : 'ASU News'}</span></a>
+                  <h5 className="card-title">{listNode.title}</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </CSSTransitionGroup>
+      )
+    });
 
-    return (
-      <div id="D8News">
-        <div className="container">
-            <div className="row">
-
-              {results.map(( listNode, index ) => {
-
-                return(
-                      <div className="col-12 col-md-4 mb-4 zoom" key={listNode.nid}>
-                        <a href={listNode.path}>
-                          <div className="card h-100">
-                            <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                            <div className={this.setSafPath(listNode.saf) + " card-body cardBody"}>
-                              <a href={listNode.saf ? "//asunow.asu.edu/topics/now/" + this.setSafPath(listNode.saf) : "//asunow.asu.edu/topics/news/saf/asu-news" }><span className={this.setSafPath(listNode.saf) + "Int cardInterest"}>{listNode.saf ? listNode.saf : 'ASU News'}</span></a>
-                              <h5 className="card-title">{listNode.title}</h5>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-
-
-
-                )
-
-              })}
-
-            </div>
+    if (!this.state.isLoaded) {
+      return(
+        <div className="loader">
+          <Loader
+  	       type="ThreeDots"
+    	     color="#5C6670"
+    	     height="100"
+    	     width="100"
+      	  />
         </div>
-      </div>
-    );
+      )
+    }
+    else {
+      return (
+        <div id="D8News">
+          <div className="container">
+              <div className="row">
+
+                  {newsItems}
+
+              </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
