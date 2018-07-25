@@ -2,23 +2,54 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './D8News.css';
 import Loader from 'react-loader-spinner';
-import { CSSTransitionGroup } from 'react-transition-group';
+import Fade from 'react-reveal/Fade';
 
 class D8News extends Component {
 
   state = {
     ourData: [],
-    isLoaded: false
+    isLoaded: false,
+    callErr: true,
+    errMsg: ''
   };
 
   componentDidMount() {
     const feedURL = this.props.dataFromPage.feed
     axios.get(feedURL).then(response => {
-          this.setState({
-            ourData: response.data.nodes,
-            isLoaded: true
-          })
-    })
+      this.setState({
+        ourData: response.data.nodes,
+        isLoaded: true,
+        callErr: false,
+      })
+    }).catch((error) => {
+        // API call error catching
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response);
+            this.setState({
+              isLoaded: true,
+              callErr: true,
+              errMsg: 'Server responded with a status code of: ' + error.response.status
+            })
+
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+            this.setState({
+              isLoaded: true,
+              callErr: true,
+              errMsg: 'The request was made but no response was received.'
+            })
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
+        //display config info for error
+        console.log(error.config);
+    });
   }
 
   setSafPath = saf => {
@@ -80,15 +111,8 @@ class D8News extends Component {
     let results = this.setFeedLength(this.props.dataFromPage.items)
     const newsItems = results.map(( listNode, index ) => {
       return(
-        <CSSTransitionGroup
-          key={listNode.nid}
-          timeout={300}
-          appear={true}
-          enter={true}
-          classNames="fade"
-        >
-          <div className="col-12 col-md-4 mb-4 zoom fade">
-            <a href={listNode.path}>
+          <div className="col-12 col-md-4 mb-4 zoom" key={listNode.nid}>
+            <button onClick={ () => window.location.href = listNode.path}>
               <div className="card h-100">
                 <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
                 <div className={this.setSafPath(listNode.saf) + " card-body cardBody"}>
@@ -96,13 +120,12 @@ class D8News extends Component {
                   <h5 className="card-title">{listNode.title}</h5>
                 </div>
               </div>
-            </a>
+            </button>
           </div>
-        </CSSTransitionGroup>
       )
     });
 
-    if (!this.state.isLoaded) {
+    if ( !this.state.isLoaded ) {
       return(
         <div className="loader">
           <Loader
@@ -114,17 +137,28 @@ class D8News extends Component {
         </div>
       )
     }
+    else if (this.state.callErr && this.state.isLoaded) {
+      return(
+        <Fade>
+          <div className="errorContainer">
+            <img className="errorIcon" src="https://clas.asu.edu/sites/default/files/styles/panopoly_image_original/public/warning.png" alt="asu news loading error" />
+            <h3 className="errorTitle">Oops! Looks like the ASU Now News Feed could not be loaded.</h3>
+            <p className="errorCode">{this.state.errMsg}</p>
+          </div>
+        </Fade>
+      )
+    }
     else {
       return (
-        <div id="D8News">
-          <div className="container">
-              <div className="row">
-
+        <Fade>
+          <div id="D8News">
+            <div className="container">
+                <div className="row">
                   {newsItems}
-
-              </div>
+                </div>
+            </div>
           </div>
-        </div>
+        </Fade>
       );
     }
   }
