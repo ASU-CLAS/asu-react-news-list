@@ -118,9 +118,9 @@ class D8News extends Component {
                 <div className="card-body cardBody">
                   
                   <h5 className="card-title-width">{listNode.title}</h5>
-                  <div className="button-padding">
+                  {/*<div className="button-padding">
                     <p className="gold-button">Request Info</p>
-                  </div>
+      </div>*/}
                 </div>
             </div> 
               
