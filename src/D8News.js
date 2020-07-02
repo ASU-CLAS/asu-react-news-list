@@ -8,6 +8,8 @@ class D8News extends Component {
 
   state = {
     ourData: [],
+    pages: 0,
+    currentPage: 0,
     isLoaded: false,
     callErr: true,
     errMsg: ''
@@ -18,6 +20,8 @@ class D8News extends Component {
     axios.get(feedURL).then(response => {
       this.setState({
         ourData: response.data.nodes,
+        pages: response.data.pager.pages,
+        currentPage: response.data.pager.page,
         isLoaded: true,
         callErr: false,
       })
@@ -94,7 +98,6 @@ class D8News extends Component {
       }));
     }
     else {
-      console.log(this.state.ourData);
       return this.state.ourData.map(thisNode => ({
         nid: thisNode.node.nid,
         title: thisNode.node.title,
@@ -108,7 +111,7 @@ class D8News extends Component {
 
 
   render() {
-    let results = this.setFeedLength(this.props.dataFromPage.items)
+    let results = this.setFeedLength(this.props.dataFromPage.items);
     const newsItems = results.map(( listNode, index ) => {
       return(
           <div className="col-12 col-md-4 mb-4 zoom" key={listNode.nid}>
