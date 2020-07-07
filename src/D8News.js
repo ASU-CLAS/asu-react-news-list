@@ -118,11 +118,15 @@ class D8News extends Component {
             <button onClick={ () => window.location.href = listNode.path}>
               <div className="card h-100">
                 <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                <div className={this.setSafPath(listNode.saf) + " card-body cardBody"}>
-                  <a href={listNode.saf ? "//asunow.asu.edu/topics/now/" + this.setSafPath(listNode.saf) : "//asunow.asu.edu/topics/news/saf/asu-news" }><span className={this.setSafPath(listNode.saf) + "Int cardInterest"}>{listNode.saf ? listNode.saf : 'ASU News'}</span></a>
-                  <h5 className="card-title">{listNode.title}</h5>
+                <div className="card-body cardBody">
+                  
+                  <h5 className="card-title-width">{listNode.title}</h5>
+                  {/*<div className="button-padding">
+                    <p className="gold-button">Request Info</p>
+      </div>*/}
                 </div>
-              </div>
+            </div> 
+              
             </button>
           </div>
       )
@@ -167,4 +171,9 @@ class D8News extends Component {
   }
 }
 
+/* Saved Snippet
+    {/*<div className={this.setSafPath(listNode.saf) + " card-body cardBody"}>
+                  <a href={listNode.saf ? "//asunow.asu.edu/topics/now/" + this.setSafPath(listNode.saf) : "//asunow.asu.edu/topics/news/saf/asu-news" }><span className={this.setSafPath(listNode.saf) + "Int cardInterest"}>{listNode.saf ? listNode.saf : 'ASU News'}</span></a>
+                  <h5 className="card-title">{listNode.title}</h5>
+      </div> */
 export default D8News;
