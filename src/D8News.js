@@ -114,19 +114,14 @@ class D8News extends Component {
     let results = this.setFeedLength(this.props.dataFromPage.items);
     const newsItems = results.map(( listNode, index ) => {
       return(
-          <div className="col-12 col-md-4 mb-4 zoom" key={listNode.nid}>
+          <div className="col col-12 col-lg-4" key={listNode.nid}>
             <button onClick={ () => window.location.href = listNode.path}>
-              <div className="card h-100">
+              <div className="card card-story card-hover h-100">
                 <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                <div className="card-body cardBody">
-                  
-                  <h5 className="card-title-width">{listNode.title}</h5>
-                  {/*<div className="button-padding">
-                    <p className="gold-button">Request Info</p>
-      </div>*/}
+                <div className="card-header">
+                  <h3 className="card-title">{listNode.title}</h3>
                 </div>
-            </div> 
-              
+              </div>
             </button>
           </div>
       )
@@ -158,7 +153,7 @@ class D8News extends Component {
     else {
       return (
         <Fade>
-          <div id="D8News">
+          <div className="D8News">
             <div className="container">
                 <div className="row">
                   {newsItems}
