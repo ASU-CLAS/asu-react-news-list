@@ -18,18 +18,18 @@ class D8News extends Component {
 
   componentDidMount() {
     const feedURL = this.props.dataFromPage.feed
-    
+
     let interestsGroup = feedURL.split("&").slice(1, 50)
     let finishedList = []
     console.log(this.props.dataFromPage.feed)
     
     //split feedURL as I was getting a bug where if the first interest had no space (e.g. &Generosity) it would refuse to run the app at all. Split and sliced to return original feedURL minus additional interests
     axios.get(feedURL.split("&").slice(0, 1)).then(response => {
-    //console.log(Object.values(response.data.nodes[1].node)[21].split("|"))
-    //21st element in array returns interests, same as events application
+    //Filters through interests property from feed Obj to find matches to tag filters
+    //console.log(response.data.nodes[4].node.interests.split("|"), "Testing testing")
     if(interestsGroup.length > 0){
       for (let i = 0; i < response.data.nodes.length; i++){
-        if (Object.values(response.data.nodes[i].node)[21].split("|").some(interest => interestsGroup.includes(interest))){
+        if (response.data.nodes[i].node.interests.split("|").some(interest => interestsGroup.includes(interest))){
           finishedList.push(response.data.nodes[i])
         }
       }
