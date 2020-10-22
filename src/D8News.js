@@ -21,7 +21,7 @@ class D8News extends Component {
 
     let interestsGroup = feedURL.split("&").slice(1, 50)
     let finishedList = []
-    console.log(this.props.dataFromPage.feed)
+    console.log(this.props.dataFromPage, "checking for additional data item")
     
     //split feedURL as I was getting a bug where if the first interest had no space (e.g. &Generosity) it would refuse to run the app at all. Split and sliced to return original feedURL minus additional interests
     axios.get(feedURL.split("&").slice(0, 1)).then(response => {
@@ -117,7 +117,8 @@ class D8News extends Component {
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
         path: thisNode.node.path,
-        saf: thisNode.node.field_saf
+        saf: thisNode.node.field_saf,
+        interests: thisNode.node.interests
       }));
     }
     else {
@@ -127,7 +128,8 @@ class D8News extends Component {
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
         path: thisNode.node.path,
-        saf: thisNode.node.field_saf
+        saf: thisNode.node.field_saf,
+        interests: thisNode.node.interests
       }));
     }
   }
@@ -135,7 +137,11 @@ class D8News extends Component {
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items);
-    const newsItems = results.map(( listNode, index ) => {
+    console.log(results)
+    let newsItems;
+    
+    if (this.props.dataFromPage.view === "Cards") {
+    newsItems = results.map(( listNode, index ) => {
       return(
           <div className="col col-12 col-lg-4" key={listNode.nid}>
             <button onClick={ () => window.open(listNode.path, '_blank')}>
@@ -151,6 +157,32 @@ class D8News extends Component {
           </div>
       )
     });
+  }
+
+  else {
+    newsItems = results.map(( listNode, index ) => {
+      return(
+          <div className="card card-hover col col-md-12" key={listNode.nid}>
+            <button onClick={ () => window.open(listNode.path, '_blank')}>
+              <div className="row no-gutters">
+                <div className="col-md-4">
+                  <img className="card-img h-100" src={listNode.image_url} alt={listNode.image_alt} />
+                </div>
+                <div className="col-md-8">
+                    <div className="list-view card-body">
+                      <h3 className="list-view card-title">{listNode.title}
+                        <p className="card-text text-muted">{listNode.interests.split("|").join(", ")}</p>
+                      </h3>
+                      
+                    </div>
+                 </div>
+              </div>
+              
+            </button>
+          </div>
+      )
+    });
+  }
 
     if ( !this.state.isLoaded ) {
       return(
