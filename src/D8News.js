@@ -3,6 +3,7 @@ import axios from 'axios';
 import './D8News.css';
 import Loader from 'react-loader-spinner';
 import Fade from 'react-reveal/Fade';
+import { Target } from 'react-popper';
 
 class D8News extends Component {
 
@@ -17,9 +18,29 @@ class D8News extends Component {
 
   componentDidMount() {
     const feedURL = this.props.dataFromPage.feed
-    axios.get(feedURL).then(response => {
+    
+    let interestsGroup = feedURL.split("&").slice(1, 50)
+    let finishedList = []
+    console.log(this.props.dataFromPage.feed)
+    
+    //split feedURL as I was getting a bug where if the first interest had no space (e.g. &Generosity) it would refuse to run the app at all. Split and sliced to return original feedURL minus additional interests
+    axios.get(feedURL.split("&").slice(0, 1)).then(response => {
+    //console.log(Object.values(response.data.nodes[1].node)[21].split("|"))
+    //21st element in array returns interests, same as events application
+    if(interestsGroup.length > 0){
+      for (let i = 0; i < response.data.nodes.length; i++){
+        if (Object.values(response.data.nodes[i].node)[21].split("|").some(interest => interestsGroup.includes(interest))){
+          finishedList.push(response.data.nodes[i])
+        }
+      }
+    }
+    else {
+      finishedList = response.data.nodes;
+    }
+      //console.log("finished array", finishedList)
+      
       this.setState({
-        ourData: response.data.nodes,
+        ourData: finishedList,
         pages: response.data.pager.pages,
         currentPage: response.data.pager.page,
         isLoaded: true,
@@ -88,7 +109,9 @@ class D8News extends Component {
 
   setFeedLength = size => {
     if (size === 'Three') {
-      return this.state.ourData.slice(0, 3).map(thisNode => ({
+      
+      return this.state.ourData.slice(0, 3).map(thisNode => (
+        {
         nid: thisNode.node.nid,
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
@@ -115,13 +138,15 @@ class D8News extends Component {
     const newsItems = results.map(( listNode, index ) => {
       return(
           <div className="col col-12 col-lg-4" key={listNode.nid}>
-            <button onClick={ () => window.location.href = listNode.path}>
+            <button onClick={ () => window.open(listNode.path, '_blank')}>
               <div className="card card-story card-hover h-100">
                 <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
                 <div className="card-header">
                   <h3 className="card-title">{listNode.title}</h3>
+                  
                 </div>
               </div>
+              
             </button>
           </div>
       )
