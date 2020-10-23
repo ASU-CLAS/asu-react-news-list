@@ -162,7 +162,7 @@ class D8News extends Component {
   else {
     newsItems = results.map(( listNode, index ) => {
       return(
-          <div className="card card-hover col col-md-12" key={listNode.nid}>
+          <div className="card card-hover" key={listNode.nid}>
             <button onClick={ () => window.open(listNode.path, '_blank')}>
               <div className="row no-gutters">
                 <div className="col-md-4">
