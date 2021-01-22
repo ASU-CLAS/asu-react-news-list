@@ -10,6 +10,10 @@
     height: 100%;
 }
 
+.card-teaser {
+ font-weight: normal;
+}
+
 /* List view styles */
 
 .list-view.card-body {
@@ -41,10 +45,8 @@
     font-size: 100%;
     text-align: left;
   }
+  
 
-  .text-muted {
-    font-size: 40%;
-  }
 
 }
 
