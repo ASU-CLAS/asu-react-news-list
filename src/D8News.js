@@ -22,7 +22,7 @@ class D8News extends Component {
     let interestsGroup = feedURL.split("&").slice(1, 50)
     let finishedList = []
     console.log(this.props.dataFromPage, "checking for additional data item")
-    
+
     //split feedURL as I was getting a bug where if the first interest had no space (e.g. &Generosity) it would refuse to run the app at all. Split and sliced to return original feedURL minus additional interests
     axios.get(feedURL.split("&").slice(0, 1)).then(response => {
     //Filters through interests property from feed Obj to find matches to tag filters
@@ -39,7 +39,7 @@ class D8News extends Component {
       finishedList = response.data.nodes;
     }
       console.log("finished array", finishedList)
-      
+
       this.setState({
         ourData: finishedList,
         pages: response.data.pager.pages,
@@ -110,7 +110,7 @@ class D8News extends Component {
 
   setFeedLength = size => {
     if (size === 'Three') {
-      
+
       return this.state.ourData.slice(0, 3).map(thisNode => (
         {
         nid: thisNode.node.nid,
@@ -142,23 +142,34 @@ class D8News extends Component {
     let results = this.setFeedLength(this.props.dataFromPage.items);
     console.log(results)
     let newsItems;
-    
+
     if (this.props.dataFromPage.view === "Cards") {
     newsItems = results.map(( listNode, index ) => {
+      let newTeaser = listNode.teaser
+      if(listNode.teaser.length > 120) {
+        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+        newTeaser += "..."
+      }
       return(
           <div className="col col-12 col-lg-4" key={listNode.nid}>
             <button onClick={ () => window.open(listNode.path, '_blank')}>
               <div className="card card-story card-hover h-100">
                 <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
                 <div className="card-header">
-                  <h4 className="card-title">{listNode.title}</h4> 
-                  
-                    <h5 className="card-text text-dark card-teaser">{listNode.teaser}</h5>
-          
-                  <h4 className="card-text text-muted">{listNode.interests.split("|").join(", ")}</h4>
+                  <h4 className="card-title">{listNode.title}</h4>
+                </div>
+                <div className="card-body">
+                  <p className="card-text text-dark card-teaser">{newTeaser}</p>
+                </div>
+                <div class="card-tags">
+                  {listNode.interests.split("|").map(( tagItem, index ) => {
+                    return(
+                      <span class='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
+                    )
+                  })}
                 </div>
               </div>
-              
+
             </button>
           </div>
       )
@@ -167,6 +178,11 @@ class D8News extends Component {
 
   else {
     newsItems = results.map(( listNode, index ) => {
+      let newTeaser = listNode.teaser
+      if(listNode.teaser.length > 120) {
+        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+        newTeaser += "..."
+      }
       return(
           <div className="card card-hover" key={listNode.nid}>
             <button onClick={ () => window.open(listNode.path, '_blank')}>
@@ -179,11 +195,11 @@ class D8News extends Component {
                       <h3 className="list-view card-title">{listNode.title}
                         <p className="card-text text-muted">{listNode.interests.split("|").join(", ")}</p>
                       </h3>
-                      
+
                     </div>
                  </div>
               </div>
-              
+
             </button>
           </div>
       )
@@ -206,7 +222,6 @@ class D8News extends Component {
       return(
         <Fade>
           <div className="errorContainer">
-            <img className="errorIcon" src="https://clas.asu.edu/sites/default/files/styles/panopoly_image_original/public/warning.png" alt="asu news loading error" />
             <h3 className="errorTitle">Oops! Looks like the ASU Now News Feed could not be loaded.</h3>
             <p className="errorCode">{this.state.errMsg}</p>
           </div>
@@ -218,7 +233,7 @@ class D8News extends Component {
         <Fade>
           <div className="D8News">
             <div className="container">
-                <div className="row">
+                <div className="row row-spaced">
                   {newsItems}
                 </div>
             </div>

@@ -19,6 +19,9 @@ window.onscroll = function() {
   if ( hasReachedBottom() && document.getElementsByClassName('loader').length == 0 ) {
     pageCount++;
     var nextPage = document.getElementById('clas-news-react-more-'+pageCount+'');
-    ReactDOM.render(<D8News dataFromPage={nextPage.dataset} />, nextPage);
+    if(nextPage != null) {
+      ReactDOM.render(<D8News dataFromPage={nextPage.dataset} />, nextPage);
+    }
+
   }
 }

@@ -9,9 +9,18 @@
     outline: inherit;
     height: 100%;
 }
-
-.card-teaser {
- font-weight: normal;
+.D8News .card-body,
+.D8News .card-tags {
+  text-align:left;
+}
+.D8News .card-tags a,
+.D8News .card-tags span {
+  text-align:left;
+  margin-right:4px;
+  margin-bottom:4px;
+}
+.D8News .card-tags {
+  display:none;
 }
 
 /* List view styles */
@@ -45,7 +54,7 @@
     font-size: 100%;
     text-align: left;
   }
-  
+
 
 
 }
