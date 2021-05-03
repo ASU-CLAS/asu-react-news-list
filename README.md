@@ -5,6 +5,7 @@ React component for displaying ASU News articles from the asunow.asu.edu [JSON f
 ## Install (Stand Alone)
 * `git clone https://github.com/ASU-CLAS/asu-react-d8news.git`
 * `yarn` - install all dependencies
+* `yarn start` - run the development server to test the app (Use https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en browser extension to allow CORS)
 * `yarn build` - build project files (Includes React Library- will need to install Bootstrap v4 separately )
 
 
