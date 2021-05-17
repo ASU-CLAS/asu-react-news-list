@@ -148,7 +148,7 @@ class D8News extends Component {
       return(
         <tr key = {listNode.nid} onClick={() => window.open(listNode.path, '_blank')}>
           <td>{listNode.title}</td>
-          <td>date</td>
+          <td>{this.state.ourData[index].node.post_date.substring(0,10)}</td>
         </tr>
       )
 
