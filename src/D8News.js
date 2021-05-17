@@ -137,6 +137,24 @@ class D8News extends Component {
     }
   }
 
+  renderTableData(results) {
+    return results.map(( listNode, index ) => {
+      let newTeaser = listNode.teaser
+      if(listNode.teaser.length > 120) {
+        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+        newTeaser += "..."
+      }
+
+      return(
+        <tr key = {listNode.nid} onClick={() => window.open(listNode.path, '_blank')}>
+          <td>{listNode.title}</td>
+          <td>date</td>
+        </tr>
+      )
+
+    })
+  }
+
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items);
@@ -176,7 +194,8 @@ class D8News extends Component {
     });
   }
 
-  else {
+  else if (this.props.dataFromPage.view === "Horizontal") {
+    console.log("went here")
     newsItems = results.map(( listNode, index ) => {
       let newTeaser = listNode.teaser
       if(listNode.teaser.length > 120) {
@@ -204,6 +223,22 @@ class D8News extends Component {
           </div>
       )
     });
+  }
+
+  else if (this.props.dataFromPage.view === "Table") {
+    return(
+      <div>
+        <table className = "news-table">
+          <tbody>
+            <tr>
+              <th> Story </th>
+              <th> Date </th>
+            </tr>
+            {this.renderTableData(results)}
+          </tbody>
+        </table>
+      </div>
+    )
   }
 
     if ( !this.state.isLoaded ) {
