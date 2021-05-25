@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { h } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import NewsDisplay from "./NewsDisplay";
 import D8News from './D8News';
+
 
 let appRoots = document.getElementsByClassName('clas-news-react-base');
 
 for (let element of appRoots) {
-  ReactDOM.render(<D8News dataFromPage={element.dataset} />, element);
+  ReactDOM.render(<NewsDisplay />, element);
 }
 
 var pageCount = 0;
