@@ -1,151 +1,89 @@
 import React, { Component } from 'react';
 import D8News from './D8News';
 import { BaseCarousel } from "./BaseCarousel/BaseCarousel";
-
-
-const myCarouselItems = [
-  {
-    id: 1,
-    item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src="https://source.unsplash.com/random/800x400?a=1"
-          alt="Card image cap"
-         />
-        <div className="card-header">
-          <h3 className="card-title">Card One</h3>
-        </div>
-        <div className="card-body">
-          <p className="card-text">
-            Body copy goes here. Limit to 5 lines max. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua eiusmod tempo.{" "}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href="#" className="btn btn-maroon">
-            Button link here
-          </a>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 2,
-    item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src="https://source.unsplash.com/random/800x400?a=2"
-          alt="Card image cap"
-         />
-        <div className="card-header">
-          <h3 className="card-title">Card Two</h3>
-        </div>
-        <div className="card-body">
-          <p className="card-text">
-            Body copy goes here. Limit to 5 lines max. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua eiusmod tempo.{" "}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href="#" className="btn btn-maroon">
-            Button link here
-          </a>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 3,
-    item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src="https://source.unsplash.com/random/800x400?a=3"
-          alt="Card image cap"
-         />
-        <div className="card-header">
-          <h3 className="card-title">Card Three</h3>
-        </div>
-        <div className="card-body">
-          <p className="card-text">
-            Body copy goes here. Limit to 5 lines max. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua eiusmod tempo.{" "}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href="#" className="btn btn-maroon">
-            Button link here
-          </a>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 4,
-    item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src="https://source.unsplash.com/random/800x400?a=4"
-          alt="Card image cap"
-         />
-        <div className="card-header">
-          <h3 className="card-title">Card Four</h3>
-        </div>
-        <div className="card-body">
-          <p className="card-text">
-            Body copy goes here. Limit to 5 lines max. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua eiusmod tempo.{" "}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href="#" className="btn btn-maroon">
-            Button link here
-          </a>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 5,
-    item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src="https://source.unsplash.com/random/800x400?a=5"
-          alt="Card image cap"
-         />
-        <div className="card-header">
-          <h3 className="card-title">Card Five</h3>
-        </div>
-        <div className="card-body">
-          <p className="card-text">
-            Body copy goes here. Limit to 5 lines max. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua eiusmod tempo.{" "}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href="#" className="btn btn-maroon">
-            Button link here
-          </a>
-        </div>
-      </div>
-    ),
-  },
-];
-
-
+import { newsService } from './services';
+import Loader from 'react-loader-spinner';
+import Fade from 'react-reveal/Fade';
+import { formatAsCarouselCard, formatAsCard, formatAsCardRow } from './cardFormatters';
+import PropTypes from "prop-types";
 class NewsDisplay extends Component {
+
+  state = {
+    ourData: [],
+    pages: 0,
+    currentPage: 0,
+    isLoaded: false,
+    callErr: true,
+    errMsg: ''
+  };
+
+  componentDidMount() {
+
+    const res = newsService(this.props.data.feed).then((feedData) => {
+      this.setState({
+        ourData: feedData.ourData,
+        pages: feedData.pages,
+        currentPage: feedData.currentPage,
+        isLoaded: feedData.isLoaded,
+        callErr: feedData.callErr,
+      });
+    }).catch((error) => {
+      this.setState({
+        isLoaded: error.isLoaded,
+        callErr: error.callErr,
+        errMsg: error.errMsg
+      })
+    });
+    
+    
+  }
+
   render() {
-    return (<BaseCarousel perView="3" carouselItems={myCarouselItems} />);
+    if ( !this.state.isLoaded ) {
+      return(
+        <div className="loader">
+          <Loader
+  	       type="ThreeDots"
+    	     color="#5C6670"
+    	     height="100"
+    	     width="100"
+      	  />
+        </div>
+      )
+    }
+    else if (this.state.callErr) {
+      return(
+        <Fade>
+          <div className="errorContainer">
+            <h3 className="errorTitle">Oops! Looks like the ASU Now News Feed could not be loaded.</h3>
+            <p className="errorCode">{this.state.errMsg}</p>
+          </div>
+        </Fade>
+      )
+    }
+    else {
+      let newsItems = [...this.state.ourData];
+      if(this.props.data.items){
+        newsItems = newsItems.slice(0, parseInt(this.props.data.items));
+      }
+      if(this.props.data.view === "Carousel"){
+        return (<BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" width="1400px" />);
+      }
+      else if(this.props.data.view === "Cards"){
+        return (<D8News items={newsItems.map(formatAsCard)} />)        
+      }
+      else if(this.props.data.view === "Horizontal"){
+        return (<D8News items={newsItems.map(formatAsCardRow)} />)
+      }
+      else {
+        return (<div>data-view must be specified</div>);
+      }
+    }
   }
 }
+
+NewsDisplay.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default NewsDisplay;
