@@ -39,11 +39,12 @@ Contents of this repository should go inside the `react-component/` folder so th
 
 This React component will render inside an element with a class name of `clas-news-react-base`. The component requires the following options:
 
-| Parameter     |  Options                                                                                          |
-| ------------- | ------------------------------------------------------------------------------------------------- |
-| data-feed     | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences) |
-| data-view     | string of the component to use (Must be 'Carousel', 'Cards', or 'Horizontal')                     |
-| data-items    | string of feed items to display (Any integer number, assumes all if not present)                  |
+| Parameter         |  Options                                                                                          |
+| -------------     | ------------------------------------------------------------------------------------------------- |
+| data-feed         | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences) |
+| data-feed-section | Section of the feed (e.g. '&Science&Student life')                                                |
+| data-view         | string of the component to use (Must be 'Carousel', 'Cards', or 'Horizontal')                     |
+| data-items        | string of feed items to display (Any integer number, assumes all if not present)                  |
 
 Example:
 

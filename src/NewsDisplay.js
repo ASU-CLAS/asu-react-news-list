@@ -18,8 +18,8 @@ class NewsDisplay extends Component {
   };
 
   componentDidMount() {
-
-    const res = newsService(this.props.data.feed).then((feedData) => {
+    console.log({props: this.props});
+    const res = newsService(this.props.data.feed + this.props.data.feedSection).then((feedData) => {
       this.setState({
         ourData: feedData.ourData,
         pages: feedData.pages,
