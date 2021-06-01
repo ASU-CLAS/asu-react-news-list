@@ -49,5 +49,5 @@ This React component will render inside an element with a class name of `clas-ne
 Example:
 
 ```html
-<div class="clas-news-react-base" data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences" data-items="3" data-view="Cards" ></div>
+<div class="clas-news-react-base" data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences" data-feed-section="&Science&Student life" data-items="3" data-view="Cards" ></div>
 ```
