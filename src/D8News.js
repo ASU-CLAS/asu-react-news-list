@@ -4,6 +4,7 @@ import Fade from 'react-reveal/Fade';
 
 class D8News extends Component {
   render() {
+    console.log({oops: this.props.newsItems});
     return (
       <Fade>
         <div className="D8News">

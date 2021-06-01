@@ -2,6 +2,7 @@ import { h } from "react";
 
 
 const formatAsCard = (item) => {
+  console.log({item});
   return(
     <div className="col col-12 col-lg-4" key={item.nid}>
       <button onClick={ () => window.open(item.path, '_blank')}>

@@ -18,7 +18,6 @@ class NewsDisplay extends Component {
   };
 
   componentDidMount() {
-    console.log({props: this.props});
     const res = newsService(this.props.data.feed + this.props.data.feedSection).then((feedData) => {
       this.setState({
         ourData: feedData.ourData,
@@ -70,10 +69,10 @@ class NewsDisplay extends Component {
         return (<BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" width="1400px" />);
       }
       else if(this.props.data.view === "Cards"){
-        return (<D8News items={newsItems.map(formatAsCard)} />)        
+        return (<D8News newsItems={newsItems.map(formatAsCard)} />)        
       }
       else if(this.props.data.view === "Horizontal"){
-        return (<D8News items={newsItems.map(formatAsCardRow)} />)
+        return (<D8News newsItems={newsItems.map(formatAsCardRow)} />)
       }
       else {
         return (<div>data-view must be specified</div>);

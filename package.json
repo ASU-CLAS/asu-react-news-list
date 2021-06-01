@@ -18,8 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "drupal": "react-app-rewired build && yarn run drupal:dist",
-    "drupal:dist": "cd build && cp static/js/*.js ../../js/clas_news_react.min.js && cp static/css/*.css ../../css/clas_news.css",
+    "drupal": "react-app-rewired build --scripts-version react-scripts && yarn run drupal:dist",
+    "drupal:dist": "./build-for-drupal.sh",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
