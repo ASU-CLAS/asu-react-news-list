@@ -1,0 +1,17 @@
+.news-feed {
+    display: flex;
+    flex-direction: column;
+
+    .feed-header-section {
+        display: flex;
+        justify-content: flex-start;
+        margin: 32px 0 32px 128px;
+
+        h3 {
+            padding-right: 530px;
+        }
+        a {
+            line-height: 24px;
+        }
+    }
+}

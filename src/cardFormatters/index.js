@@ -1,5 +1,5 @@
 import { h } from "react";
-
+import "./styles.scss";
 
 const formatAsCard = (item) => {
   return (
@@ -11,7 +11,7 @@ const formatAsCard = (item) => {
             <h4 className="card-title">{item.title}</h4>
           </div>
           <div className="card-body">
-            <p className="card-text text-dark card-teaser">{item.teaser}</p>
+            <p className="card-text text-dark">{item.teaser}</p>
           </div>
           <div class="card-tags">
             {item.interests.split("|").map(( tagItem, index ) => {
@@ -62,7 +62,7 @@ const formatAsCarouselCard = (item, index) => {
           <h4 className="card-title">{item.title}</h4>
         </div>
         <div className="card-body">
-          <p className="card-text text-dark card-teaser">{item.teaser}</p>
+          <p className="card-text text-dark card-pad-text">{item.teaser}</p>
           <a className="btn btn-dark text-white" href={item.path} >Read more</a>
         </div>
       </div>

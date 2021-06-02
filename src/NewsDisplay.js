@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 import Fade from 'react-reveal/Fade';
 import { formatAsCarouselCard, formatAsCard, formatAsCardRow } from './cardFormatters';
 import PropTypes from "prop-types";
+import './NewsDisplay.scss';
 class NewsDisplay extends Component {
 
   state = {
@@ -18,7 +19,8 @@ class NewsDisplay extends Component {
   };
 
   componentDidMount() {
-    const res = newsService(this.props.data.feed + this.props.data.feedSection).then((feedData) => {
+    const url = this.props.data.feed + (this.props.data.feedSection || '');
+    const res = newsService(url).then((feedData) => {
       this.setState({
         ourData: feedData.ourData,
         pages: feedData.pages,
@@ -65,18 +67,23 @@ class NewsDisplay extends Component {
       if(this.props.data.items){
         newsItems = newsItems.slice(0, parseInt(this.props.data.items));
       }
-      if(this.props.data.view === "Carousel"){
-        return (<BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" width="1400px" />);
+      const displayMode = ['Carousel', 'Cards', 'Horizontal'].includes(this.props.data.view) ? this.props.data.view : 'Other';
+      const newsComponent = {
+        'Carousel': <BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" width="1400px" />,
+        'Cards': <D8News newsItems={newsItems.map(formatAsCard)} />,
+        'Horizontal': <D8News newsItems={newsItems.map(formatAsCardRow)} />,
+        'Other': <div>data-view must be specified</div>
       }
-      else if(this.props.data.view === "Cards"){
-        return (<D8News newsItems={newsItems.map(formatAsCard)} />)        
-      }
-      else if(this.props.data.view === "Horizontal"){
-        return (<D8News newsItems={newsItems.map(formatAsCardRow)} />)
-      }
-      else {
-        return (<div>data-view must be specified</div>);
-      }
+
+      return (
+        <div className="news-feed">
+          <div className="feed-header-section">
+            <h3>{this.props.data.headerTitle}</h3>
+            <a className="btn btn-gold" href="https://news.asu.edu/" >More stories and videos</a>
+          </div>
+          { newsComponent[displayMode] }
+        </div>
+      )
     }
   }
 }

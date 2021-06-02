@@ -31,15 +31,24 @@ This will create the appropriate JS and CSS files in `build/static/drupal-build`
 
 This React component will render inside an element with a class name of `clas-news-react-base`. The component requires the following options:
 
-| Parameter         |  Options                                                                                          |
-| -------------     | ------------------------------------------------------------------------------------------------- |
-| data-feed         | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences) |
-| data-feed-section | Section of the feed (e.g. '&Science&Student life')                                                |
-| data-view         | string of the component to use (Must be 'Carousel', 'Cards', or 'Horizontal')                     |
-| data-items        | string of feed items to display (Any integer number, assumes all if not present)                  |
+| Parameter         |  Options                                                                                                         |
+| -------------     | ---------------------------------------------------------------------------------------------------------------- |
+| data-feed         | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences)                |
+| data-feed-section | This can either be something like will filter by `news_unit`, for example 'college-liberal-arts-and-sciences',   |
+|                   | or something that will filter by `interests`, for example 'Science.                                              |
+| data-view         | string of the component to use (Must be 'Carousel', 'Cards', or 'Horizontal')                                    |
+| data-items        | string of feed items to display (Any integer number, default is all, though the API will only return 30)         |
+| data-header-title | string of the header title that will be displayed above the content                                              |
 
 Example:
 
 ```html
-<div class="clas-news-react-base" data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences" data-feed-section="&Science&Student life" data-items="3" data-view="Cards" ></div>
+<div 
+    class="clas-news-react-base"
+    data-view="Carousel"
+    data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/"
+    data-feed-section="Science"
+    data-items="7"
+    data-header-title="Knowledge and enterprise news">
+</div>
 ```

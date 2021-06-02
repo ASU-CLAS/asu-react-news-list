@@ -1,6 +1,5 @@
 import React, { h } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import NewsDisplay from "./NewsDisplay";
 import D8News from './D8News';
 
