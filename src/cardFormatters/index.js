@@ -2,8 +2,7 @@ import { h } from "react";
 
 
 const formatAsCard = (item) => {
-  console.log({item});
-  return(
+  return (
     <div className="col col-12 col-lg-4" key={item.nid}>
       <button onClick={ () => window.open(item.path, '_blank')}>
         <div className="card card-story card-hover h-100">
@@ -55,24 +54,16 @@ const formatAsCarouselCard = (item, index) => {
   return {
     id: index,
     item: (
-      <div className="card">
-        <img
-          className="card-img-top"
-          src={item.image_url}
-          alt={item.image_alt}
-          />
+      <div className="card card-story h-100">
+        <div className="card-img-top">
+          <img src={item.image_url} alt={item.image_alt} />
+        </div>
         <div className="card-header">
-          <h3 className="card-title">{item.title}</h3>
+          <h4 className="card-title">{item.title}</h4>
         </div>
         <div className="card-body">
-          <p className="card-text">
-            {item.teaser}
-          </p>
-        </div>
-        <div className="card-button">
-          <a href={item.path} className="btn btn-maroon">
-            Read more
-          </a>
+          <p className="card-text text-dark card-teaser">{item.teaser}</p>
+          <a className="btn btn-dark text-white" href={item.path} >Read more</a>
         </div>
       </div>
     ),

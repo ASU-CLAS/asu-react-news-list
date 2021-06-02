@@ -23,16 +23,8 @@ foresee a need to 'drop-in' an updated version of the asu-unity-stack carousel i
 * `yarn` - install all dependencies
 * `yarn drupal` - build project files (Excludes React Library)
 
-Drupal Folder Structure:
-
-```
-my-module/
-  css/
-  js/
-  react-component/
-```
-
-Contents of this repository should go inside the `react-component/` folder so that when `yarn drupal` executes the bundled files are copied to the correct `css/` and `js/` folders.
+This will create the appropriate JS and CSS files in `build/static/drupal-build`. This folder will also contain an 
+`index.html`, though that's only for example purposes to show how to use the component and test it statically.
 
 
 ## Rendering the component
