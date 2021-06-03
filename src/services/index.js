@@ -7,7 +7,7 @@ const newsService = (feedURL) => {
         return {
           nid: item.node.nid,
           teaser: shortenText(item.node.clas_teaser, 120),
-          title: shortenText(item.node.title, 30),
+          title: shortenText(item.node.title, 80),
           image_url: item.node.image_url,
           image_alt: item.node.image_alt,
           path: item.node.path,

@@ -47,6 +47,8 @@ function buildConfig(perView = "1", isFullWidth) {
     swipeThreshold: 80, // Distance required for swipe to change slide.
     dragThreshold: 120, // Distance for mouse drag to change slide.
     perTouch: 1, // Number of slides that can be moved per each swipe/drag.
+    perView: perViewLg,//Can be overwritten at breakpoints
+    peek: largePeek,//Can be overwritten at breakpoints
     // isFullWidth = true, then we have only image per view which takes the full width.
     // no need for reakpoints
     breakpoints: isFullWidth

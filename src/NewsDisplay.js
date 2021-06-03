@@ -67,23 +67,41 @@ class NewsDisplay extends Component {
       if(this.props.data.items){
         newsItems = newsItems.slice(0, parseInt(this.props.data.items));
       }
+
+      const headerSection = (
+        <div className="feed-header-section">
+          <h3>{this.props.data.headerTitle}</h3>
+          <a className="btn btn-gold news-header-link" href="https://news.asu.edu/" >More stories and videos</a>
+        </div>
+      );
       const displayMode = ['Carousel', 'Cards', 'Horizontal'].includes(this.props.data.view) ? this.props.data.view : 'Other';
       const newsComponent = {
-        'Carousel': <BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" width="1400px" />,
-        'Cards': <D8News newsItems={newsItems.map(formatAsCard)} />,
-        'Horizontal': <D8News newsItems={newsItems.map(formatAsCardRow)} />,
+        'Carousel': (
+          <div className="news-feed">
+            <div className="carousel-background">
+              { headerSection }
+              <div className="carousel-wrapper">
+                <BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" />
+              </div>
+            </div>
+          </div>
+        ),
+        'Cards': (
+          <div className="news-feed">
+            { headerSection }
+            <D8News newsItems={newsItems.map(formatAsCard)} />,
+          </div>
+        ),
+        'Horizontal': (
+          <div className="news-feed">
+            { headerSection }
+            <D8News newsItems={newsItems.map(formatAsCardRow)} />,
+          </div>
+        ),
         'Other': <div>data-view must be specified</div>
       }
 
-      return (
-        <div className="news-feed">
-          <div className="feed-header-section">
-            <h3>{this.props.data.headerTitle}</h3>
-            <a className="btn btn-gold" href="https://news.asu.edu/" >More stories and videos</a>
-          </div>
-          { newsComponent[displayMode] }
-        </div>
-      )
+      return newsComponent[displayMode];
     }
   }
 }

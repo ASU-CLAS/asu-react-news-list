@@ -54,12 +54,12 @@ const formatAsCarouselCard = (item, index) => {
   return {
     id: index,
     item: (
-      <div className="card card-story h-100">
+      <div className="card card-story carousel-card h-100">
         <div className="card-img-top">
           <img src={item.image_url} alt={item.image_alt} />
         </div>
         <div className="card-header">
-          <h4 className="card-title">{item.title}</h4>
+          <h4 className="card-title card-pad-header">{item.title}</h4>
         </div>
         <div className="card-body">
           <p className="card-text text-dark card-pad-text">{item.teaser}</p>
