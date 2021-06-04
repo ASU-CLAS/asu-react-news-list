@@ -25,14 +25,10 @@
         padding-top: 32px;
         background-image: linear-gradient(
             to top,
-            transparent 63%,
+            transparent 61.7%,
             #131313 0
         );
         background-position: top;
-
-        .carousel-wrapper {
-            
-        }
 
         .feed-header-section {
             h3 {
@@ -58,7 +54,27 @@
         .carousel-background {
             background-image: linear-gradient(
                 to top,
-                transparent 59.4%,
+                transparent 58.1%,
+                #131313 0
+            );
+        }
+    }
+
+    @media only screen and (max-width: 991px) {
+        .carousel-background {
+            background-image: linear-gradient(
+                to top,
+                transparent 58.5%,
+                #131313 0
+            );
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .carousel-background {
+            background-image: linear-gradient(
+                to top,
+                transparent 55.4%,
                 #131313 0
             );
         }
