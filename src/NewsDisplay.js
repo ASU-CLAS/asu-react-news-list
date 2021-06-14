@@ -68,10 +68,13 @@ class NewsDisplay extends Component {
         newsItems = newsItems.slice(0, parseInt(this.props.data.items));
       }
 
+      const headerTitle = this.props.data.headerTitle || 'Knowledge and enterprise news';
+      const ctaLink = this.props.data.ctaLink || "https://news.asu.edu/";
+      
       const headerSection = (
         <div className="feed-header-section">
-          <h3>{this.props.data.headerTitle}</h3>
-          <a className="btn btn-gold news-header-link" href="https://news.asu.edu/" >More stories and videos</a>
+          <h3>{headerTitle}</h3>
+          <a className="btn btn-gold news-header-link" href={ctaLink} >More stories and videos</a>
         </div>
       );
       const displayMode = ['Carousel', 'Cards', 'Horizontal'].includes(this.props.data.view) ? this.props.data.view : 'Other';
