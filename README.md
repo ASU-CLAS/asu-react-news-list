@@ -38,7 +38,9 @@ This React component will render inside an element with a class name of `clas-ne
 |                   | or something that will filter by `interests`, for example 'Science.                                              |
 | data-view         | string of the component to use (Must be 'Carousel', 'Cards', or 'Horizontal')                                    |
 | data-items        | string of feed items to display (Any integer number, default is all, though the API will only return 30)         |
-| data-header-title | string of the header title that will be displayed above the content                                              |
+| data-header-title | string of the header title that will be displayed above the content (Defaults to 'Knowledge and enterprise       |
+|                   | news')                                                                                                           |   
+| data-cta-link     | string of the url for the CTA button. (defaults to https://news.asu.edu/)
 
 Example:
 
