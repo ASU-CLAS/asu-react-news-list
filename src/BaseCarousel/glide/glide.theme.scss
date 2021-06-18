@@ -14,7 +14,6 @@ $uds-color-brand-gold: #ffc627; // ASU Gold brand color
   display: flex;
   flex-direction: column;
   gap: 32px;
-
   // Gradient variations wired up to js in component.
   // .glide.slider-start::after rule w/o "to right"
   // .glide.slider-mid::after rule w/ both
@@ -22,7 +21,7 @@ $uds-color-brand-gold: #ffc627; // ASU Gold brand color
 
   // Linear-gradients.
   position: relative;
-  margin-bottom: 11rem;
+  margin-bottom: 0;
   // At start, no "to right" in ::after rule
   &.slider-start::after {
     // .glide::after
@@ -118,6 +117,19 @@ $uds-color-brand-gold: #ffc627; // ASU Gold brand color
         height: 1.25rem;
         position: relative;
         bottom: 0.125rem;
+      }
+
+      @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS devices */ 
+        svg {
+          right: 0.25rem;        }
+      }
+
+      &.glide__arrow--prev {
+        left: 0;
+      }
+      &.glide__arrow--next {
+        right: 0;
       }
 
       &:focus {
