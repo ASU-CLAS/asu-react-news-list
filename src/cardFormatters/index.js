@@ -63,7 +63,7 @@ const formatAsCarouselCard = (item, index) => {
         </div>
         <div className="card-body">
           <p className="card-text text-dark card-pad-text">{item.teaser}</p>
-          <a className="btn btn-dark text-white" href={item.path} >Read more</a>
+          <a className="btn btn-maroon text-white" href={item.path} >Read more</a>
         </div>
       </div>
     ),

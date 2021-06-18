@@ -33,7 +33,7 @@ function buildConfig(perView = "1", isFullWidth) {
   }
 
   const smallPeeek = { before: 0, after: 62 };
-  const largePeek = { before: 124, after: 124 };
+  const largePeek = { before: 104, after: 104 };//80 of the card plus 24 'gap' from below
 
   // Set GlideJS config options, per https://glidejs.com/docs/options/
   return {

@@ -73,19 +73,19 @@ class NewsDisplay extends Component {
       
       const headerSection = (
         <div className="feed-header-section">
-          <h3>{headerTitle}</h3>
-          <a className="btn btn-gold news-header-link" href={ctaLink} >More stories and videos</a>
+          <span className="feed-header-title">{headerTitle}</span>
+          <span className="feed-header-control">
+            <a className="btn btn-gold" href={ctaLink} >More stories and videos</a>
+          </span>
         </div>
       );
       const displayMode = ['Carousel', 'Cards', 'Horizontal'].includes(this.props.data.view) ? this.props.data.view : 'Other';
       const newsComponent = {
         'Carousel': (
           <div className="news-feed">
-            <div className="carousel-background">
+            <div className="carousel-wrapper">
               { headerSection }
-              <div className="carousel-wrapper">
-                <BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" />
-              </div>
+              <BaseCarousel carouselItems={newsItems.map(formatAsCarouselCard)} perView="3" />
             </div>
           </div>
         ),
