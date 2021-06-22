@@ -40,7 +40,8 @@ This React component will render inside an element with a class name of `clas-ne
 | data-items        | string of feed items to display (Any integer number, default is all, though the API will only return 30)         |
 | data-header-title | string of the header title that will be displayed above the content (Defaults to 'Knowledge and enterprise       |
 |                   | news')                                                                                                           |   
-| data-cta-link     | string of the url for the CTA button. (defaults to https://news.asu.edu/)
+| data-cta-link     | string of the url for the CTA button. (defaults to https://news.asu.edu/)                                        |
+| data-cta-text     | string of the text for the CTA button. (defaults to 'More stories and videos')                                   |
 
 Example:
 
@@ -51,6 +52,8 @@ Example:
     data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/"
     data-feed-section="Science"
     data-items="7"
-    data-header-title="Knowledge and enterprise news">
+    data-header-title="Knowledge and enterprise news"
+    data-cta-link="https://news.asu.edu/"
+    data-cta-text="More stories and videos">
 </div>
 ```

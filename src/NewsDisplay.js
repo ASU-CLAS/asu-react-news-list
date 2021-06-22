@@ -70,12 +70,13 @@ class NewsDisplay extends Component {
 
       const headerTitle = this.props.data.headerTitle || 'Knowledge and enterprise news';
       const ctaLink = this.props.data.ctaLink || "https://news.asu.edu/";
+      const ctaText = this.props.data.ctaText || 'More stories and videos';
       
       const headerSection = (
         <div className="feed-header-section">
           <span className="feed-header-title">{headerTitle}</span>
           <span className="feed-header-control">
-            <a className="btn btn-gold" href={ctaLink} >More stories and videos</a>
+            <a className="btn btn-gold" href={ctaLink} >{ctaText}</a>
           </span>
         </div>
       );
