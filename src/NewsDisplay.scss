@@ -59,10 +59,15 @@
 
             .feed-header-section {
                 flex-direction: column;
+
+                h3 {
+                   padding-right: 0; 
+                }
     
                 .feed-header-title {
                     font-size: 24px;
                     margin-bottom: 1.5rem;
+                    padding-right: 0;
                 }
 
                 .feed-header-control {
@@ -79,10 +84,15 @@
             .feed-header-section {
                 margin-left: 0;
                 flex-direction: column;
+
+                h3 {
+                   padding-right: 0; 
+                }
     
                 .feed-header-title {
                     font-size: 24px;
                     margin-bottom: 1.5rem;
+                    padding-right: 0;
                 }
 
                 .feed-header-control {
