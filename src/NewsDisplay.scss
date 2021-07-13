@@ -15,7 +15,8 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    margin: 0 0 3rem calc(((100% - 1200px) / 2) + var(--carousel-sides));
+    margin: 0 calc(((100% - 1200px) / 2) - 10px) 3rem
+      calc(((100% - 1200px) / 2) - 10px);
 
     .feed-header-title {
       font-size: 32px;
@@ -33,8 +34,12 @@
   }
 
   .carousel-wrapper {
-    width: 1200px;
+    width: calc(1200px + var(--carousel-sides) * 2);
     margin: auto;
+    .feed-header-section {
+      margin: 0 0 3rem
+        calc(((100% - 1200px) / 2) - 10px);
+    }
   }
 
   @media only screen and (max-width: 1200px) {

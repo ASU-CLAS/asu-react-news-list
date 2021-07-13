@@ -61,7 +61,7 @@ const formatAsCardRow = (item) => {
   );
 };
 
-const formatAsCarouselCard = (item, index) => {
+const formatAsCarouselCard = (item, index, cardsButtonsColor) => {
   return {
     id: index,
     item: (
@@ -75,7 +75,7 @@ const formatAsCarouselCard = (item, index) => {
         <div className="card-body">
           <p className="card-text text-dark card-pad-text">{item.teaser}</p>
           <a
-            className={`btn btn-${item.color || "maroon"} text-white`}
+            className={`btn btn-${cardsButtonsColor || "maroon"} text-white`}
             href={item.path}
           >
             Read more
