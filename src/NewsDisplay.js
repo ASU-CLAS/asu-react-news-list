@@ -71,7 +71,7 @@ class NewsDisplay extends Component {
       const headerColor = this.props.data.headerColor || "dark";
       const ctaLink = this.props.data.ctaLink || "https://news.asu.edu/";
       const ctaText = this.props.data.ctaText || "More stories and videos";
-      const headerButtonColor = this.props.ctaColor || "gold";
+      const ctaColor = this.props.data.ctaColor || "gold";
 
       const headerSection = (
         <div className="feed-header-section">
@@ -79,7 +79,7 @@ class NewsDisplay extends Component {
             {headerTitle}
           </span>
           <span className="feed-header-control">
-            <a className={`btn btn-${headerButtonColor}`} href={ctaLink}>
+            <a className={`btn btn-${ctaColor}`} href={ctaLink}>
               {ctaText}
             </a>
           </span>
@@ -96,7 +96,13 @@ class NewsDisplay extends Component {
             <div className="carousel-wrapper">
               {headerSection}
               <BaseCarousel
-                carouselItems={newsItems.map(formatAsCarouselCard)}
+                carouselItems={newsItems.map((item, index) =>
+                  formatAsCarouselCard(
+                    item,
+                    index,
+                    this.props.data.cardsButtonsColor
+                  )
+                )}
                 perView="3"
               />
             </div>
@@ -104,13 +110,13 @@ class NewsDisplay extends Component {
         ),
         Cards: (
           <div className="news-feed">
-            { headerSection }
+            {headerSection}
             <D8News newsItems={newsItems.map(formatAsCard)} />
           </div>
         ),
         Horizontal: (
           <div className="news-feed">
-            { headerSection }
+            {headerSection}
             <D8News newsItems={newsItems.map(formatAsCardRow)} />
           </div>
         ),
