@@ -1,11 +1,17 @@
-.card-pad-header {
-  height: 4.2rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-pad-text {
-  height: 6rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.news-feed {
+  .card-header {
+    padding-top: 16px;
+  }
+  
+  .card-pad-header {
+    height: 5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .card-pad-text {
+    height: 6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }   
 }

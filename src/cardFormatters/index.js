@@ -70,7 +70,7 @@ const formatAsCarouselCard = (item, index, cardsButtonsColor) => {
           <img src={item.image_url} alt={item.image_alt} />
         </div>
         <div className="card-header">
-          <h4 className="card-title card-pad-header">{item.title}</h4>
+          <h3 className="card-title card-pad-header">{item.title}</h3>
         </div>
         <div className="card-body">
           <p className="card-text text-dark card-pad-text">{item.teaser}</p>
