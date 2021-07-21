@@ -1,20 +1,30 @@
 .news-feed {
+  .card {
+    border: none;
+
+    .card-img-top {
+      padding: none;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
   
-  .card-header {
-    padding-top: 16px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .card-pad-header {
-    height: 5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .card-pad-text {
-    height: 6rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .card-header {
+      padding-top: 16px;
+
+      .card-pad-header {
+        height: 5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .card-pad-text {
+      height: 6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }   
 }
