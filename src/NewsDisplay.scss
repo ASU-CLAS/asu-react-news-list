@@ -1,3 +1,6 @@
+.container .news-feed .carousel-wrapper {
+  margin-left: calc(-1 * var(--carousel-sides));
+}
 .news-feed {
   --carousel-sides: 104px;
   //104px is the 80px preview of the previous card and the 24px gap between cards
@@ -7,9 +10,6 @@
   flex-direction: column;
   width: 100%;
   margin: 2rem 0;
-
-  .fa-chevron-right {
-  }
 
   .feed-header-section {
     display: flex;
@@ -37,8 +37,7 @@
     width: calc(1200px + var(--carousel-sides) * 2);
     margin: auto;
     .feed-header-section {
-      margin: 0 0 3rem
-        calc(((100% - 1200px) / 2) - 10px);
+      margin: 0 0 3rem calc(((100% - 1200px) / 2) - 10px);
     }
   }
 
