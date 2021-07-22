@@ -103,7 +103,7 @@ function buildConfig(perView = "1", isFullWidth) {
  *
  * @returns {Glide.Static}
  */
-function setupCaroarousel({
+function setupCarousel({
   instanceName,
   perView,
   buttonCount,
@@ -127,14 +127,18 @@ function setupCaroarousel({
     // Set .slider-start for starting gradient styles.
     const gliderElement = document.querySelector(`#${instanceName}`);
     if (!gliderElement) return; // necessary. it breaks on resize
-    gliderElement.classList.add("slider-start");
+    const gliderTrack = gliderElement.querySelector('.glide__track');
+
+    gliderTrack.classList.add("slider-start");
   });
 
   // On Move event...
   slider.on("move", () => {
     // Get glider top level element.
     const gliderElement = document.querySelector(`#${instanceName}`);
+    
     if (!gliderElement) return; // necessary. it breaks on resize
+    const gliderTrack = gliderElement.querySelector('.glide__track');
 
     const arrowPrev = gliderElement.querySelector(`.glide__arrow--prev`);
     const arrowNext = gliderElement.querySelector(`.glide__arrow--next`);
@@ -148,24 +152,24 @@ function setupCaroarousel({
     if (currentIndendx === 0) {
       // START SLIDE.
       // Gradient for start.
-      gliderElement.classList.remove(...gradientClasses);
-      gliderElement.classList.add("slider-start");
+      gliderTrack.classList.remove(...gradientClasses);
+      gliderTrack.classList.add("slider-start");
       // Enable/disable prev/next styles. Glide takes care of actual disable.
       arrowPrev.classList.add("glide__arrow--disabled");
       arrowNext.classList.remove("glide__arrow--disabled");
     } else if (currentIndendx >= buttonCount - 1) {
       // MIDDLE SLIDES.
       // Gradient for end.
-      gliderElement.classList.remove(...gradientClasses);
-      gliderElement.classList.add("slider-end");
+      gliderTrack.classList.remove(...gradientClasses);
+      gliderTrack.classList.add("slider-end");
       // Enable/disable prev/next styles. Glide takes care of actual disable.
       arrowPrev.classList.remove("glide__arrow--disabled");
       arrowNext.classList.add("glide__arrow--disabled");
     } else {
       // LAST SLIDE.
       // Gradient for middle.
-      gliderElement.classList.remove(...gradientClasses);
-      gliderElement.classList.add("slider-mid");
+      gliderTrack.classList.remove(...gradientClasses);
+      gliderTrack.classList.add("slider-mid");
       // Enable/disable prev/next styles. Glide takes care of actual disable.
       arrowPrev.classList.remove("glide__arrow--disabled");
       arrowNext.classList.remove("glide__arrow--disabled");
@@ -175,31 +179,8 @@ function setupCaroarousel({
     onItemClick && onItemClick(currentIndendx);
   });
 
-  // On Resize event...
-  /* TODO Leverage this event to recalculate and updating number of bullets.
-     * See notes about this above.
-    slider.on("resize", function () {
-      // Get Original viewport width
-      let vw = Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
-      console.log("VW on resize", vw);
-      if (vw < 768) {
-        // Value for sm breakpoint
-        console.log("VW sm", vw);
-      } else if (vw < 992) {
-        // Value for md breakpoint
-        console.log("VW md", vw);
-      } else {
-        // Value for lg breakpoint
-        console.log("VW lg", vw);
-      }
-    });
-    */
-
   slider.mount();
   return slider;
 }
 
-export { setupCaroarousel };
+export { setupCarousel };

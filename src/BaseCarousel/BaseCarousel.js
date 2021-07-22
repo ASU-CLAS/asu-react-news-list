@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // Include required and custom styles for @glidejs/glide
 import "./styles.scss";
 import { SliderItems, BulletItems, NavButtons } from "./components";
-import { setupCaroarousel } from "./glide/glide.setup";
+import { setupCarousel } from "./glide/glide.setup";
 import { calcualteViewItems } from "./helper/width-calculator";
 
 // Requirement: We import bs4-theme css from QA site in preview-head.html.
@@ -63,7 +63,7 @@ const BaseCarousel = ({
   const buttonCount = calcualteViewItems(carouselItems.length, +perView);
 
   useEffect(() => {
-    setupCaroarousel({
+    setupCarousel({
       instanceName,
       perView,
       buttonCount,
