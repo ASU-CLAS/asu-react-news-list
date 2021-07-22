@@ -1,6 +1,7 @@
 .news-feed {
   .card {
     border: none;
+    border: 1px solid #d0d0d0;
 
     .card-img-top {
       padding: none;
@@ -12,12 +13,18 @@
     }
   
     .card-header {
-      padding-top: 16px;
+      padding: 16px;
 
       .card-pad-header {
         height: 5rem;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+    }
+
+    .card-body {
+      p {
+        margin-bottom: 24px;
       }
     }
 

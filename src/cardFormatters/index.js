@@ -67,7 +67,9 @@ const formatAsCarouselCard = (item, index, cardsButtonsColor) => {
     item: (
       <div className="card card-story carousel-card h-100">
         <div className="card-img-top" style={{ padding: 0 }}>
-          <img src={item.image_url} alt={item.image_alt} />
+          <span>
+            <img src={item.image_url} alt={item.image_alt} />
+          </span>
         </div>
         <div className="card-header">
           <h3 className="card-title card-pad-header">{item.title}</h3>
