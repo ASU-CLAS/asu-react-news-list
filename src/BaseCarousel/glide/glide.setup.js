@@ -140,7 +140,6 @@ function setupCarousel({
     if (!gliderElement) return; // necessary. it breaks on resize
     const gliderTrack = gliderElement.querySelector('.glide__track');
 
-    console.log({gliderElement});
     const arrowPrev = gliderElement.querySelector(`.glide__arrow--prev`);
     const arrowNext = gliderElement.querySelector(`.glide__arrow--next`);
     // Gradient-triggering classes.
@@ -179,29 +178,6 @@ function setupCarousel({
     gliderElement.setAttribute("data-current-index", currentIndendx);
     onItemClick && onItemClick(currentIndendx);
   });
-
-  // On Resize event...
-  /* TODO Leverage this event to recalculate and updating number of bullets.
-     * See notes about this above.
-    slider.on("resize", function () {
-      // Get Original viewport width
-      let vw = Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
-      console.log("VW on resize", vw);
-      if (vw < 768) {
-        // Value for sm breakpoint
-        console.log("VW sm", vw);
-      } else if (vw < 992) {
-        // Value for md breakpoint
-        console.log("VW md", vw);
-      } else {
-        // Value for lg breakpoint
-        console.log("VW lg", vw);
-      }
-    });
-    */
 
   slider.mount();
   return slider;
