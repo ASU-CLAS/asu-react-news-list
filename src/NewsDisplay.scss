@@ -1,5 +1,7 @@
-.container .news-feed .carousel-wrapper {
-  margin-left: calc(-1 * var(--carousel-sides));
+@media only screen and (min-width: 577px) {
+  .container .news-feed .carousel-wrapper {
+    margin-left: calc(-1 * var(--carousel-sides));
+  }
 }
 .news-feed {
   --carousel-sides: 104px;
