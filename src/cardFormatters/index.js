@@ -5,7 +5,7 @@ const formatAsCard = (item) => {
   return (
     <div className="col col-12 col-lg-4" key={item.nid}>
       <button onClick={() => window.open(item.path, "_blank")}>
-        <div className="card card-story card-hover h-100">
+        <div className="card card card-hover h-100">
           <img
             className="card-img-top"
             src={item.image_url}
