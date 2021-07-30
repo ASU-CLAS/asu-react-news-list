@@ -7,10 +7,8 @@ class D8News extends Component {
     return (
       <Fade>
         <div className="D8News">
-          <div className="container">
-              <div className="row row-spaced">
-                {this.props.newsItems}
-              </div>
+          <div className="row row-spaced">
+            {this.props.newsItems}
           </div>
         </div>
       </Fade>

@@ -110,14 +110,18 @@ class NewsDisplay extends Component {
         ),
         Cards: (
           <div className="news-feed">
-            {headerSection}
-            <D8News newsItems={newsItems.map(formatAsCard)} />
+            <div className="cards-wrapper">
+              {headerSection}
+              <D8News newsItems={newsItems.map(formatAsCard)} />
+            </div>
           </div>
         ),
         Horizontal: (
           <div className="news-feed">
-            {headerSection}
-            <D8News newsItems={newsItems.map(formatAsCardRow)} />
+            <div className="horizontal-wrapper">
+              {headerSection}
+              <D8News newsItems={newsItems.map(formatAsCardRow)} />
+            </div>
           </div>
         ),
         Other: <div>data-view must be specified</div>,
