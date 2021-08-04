@@ -118,7 +118,7 @@ class D8News extends Component {
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
-        path: thisNode.node.path,
+        path: thisNode.node.path + + "?{_src}=news-story",
         saf: thisNode.node.field_saf,
         interests: thisNode.node.interests
       }));
@@ -130,7 +130,7 @@ class D8News extends Component {
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
-        path: thisNode.node.path,
+        path: thisNode.node.path + "?{_src}=news-story",
         saf: thisNode.node.field_saf,
         interests: thisNode.node.interests
       }));
@@ -185,7 +185,7 @@ class D8News extends Component {
       }
       return(
           <div className="card card-hover" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>
+            <button onClick={ () => window.open(listNode.path, '_blank')}>  
               <div className="row no-gutters">
                 <div className="col-md-4">
                   <img className="card-img h-100" src={listNode.image_url} alt={listNode.image_alt} />
