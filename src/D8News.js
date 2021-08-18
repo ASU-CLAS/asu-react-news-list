@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './D8News.css';
 import Loader from 'react-loader-spinner';
-import Fade from 'react-reveal/Fade';
+import { Fade } from "react-awesome-reveal";
 import { Target } from 'react-popper';
 
 class D8News extends Component {
