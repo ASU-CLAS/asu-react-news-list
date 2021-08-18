@@ -5,6 +5,7 @@ React component for displaying ASU News articles from the asunow.asu.edu [JSON f
 ## Install (Stand Alone)
 * `git clone https://github.com/ASU-CLAS/asu-react-d8news.git`
 * `yarn` - install all dependencies
+* `yarn start` - run the development server to test the app (Use https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en browser extension to allow CORS)
 * `yarn build` - build project files (Includes React Library- will need to install Bootstrap v4 separately )
 
 
@@ -32,10 +33,11 @@ This React component will render inside an element with a class name of `clas-ne
 | Parameter     |  Options |
 | ------------- | :------|
 | data-feed      | from asu now json feed (e.g. https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences) |
-| data-items      | string of feed items to display (All or Three ) |
+| data-items      | string, number of feed items to display (All or Three) |
+| data-view      | string, view style (Cards, Horizontal or Table ) |
 
 Example:
 
 ```html
-<div class="clas-news-react-base" data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences" data-items="All"></div>
+<div class="clas-news-react-base" data-feed="https://cors-anywhere.herokuapp.com/https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences" data-items="All" data-view="Cards"></div>
 ```
