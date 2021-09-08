@@ -164,7 +164,7 @@ class D8News extends Component {
                 <div className="card-tags">
                   {listNode.interests.split("|").map(( tagItem, index ) => {
                     return(
-                      <span key={index} className='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
+                      <span className='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
                     )
                   })}
                 </div>
