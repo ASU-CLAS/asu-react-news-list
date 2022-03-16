@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './D8News.css';
 import Loader from 'react-loader-spinner';
-import Fade from 'react-reveal/Fade';
+import { Fade } from 'react-awesome-reveal';
 import { Target } from 'react-popper';
 
 class D8News extends Component {
@@ -161,10 +161,10 @@ class D8News extends Component {
                 <div className="card-body">
                   <p className="card-text text-dark card-teaser">{newTeaser}</p>
                 </div>
-                <div class="card-tags">
+                <div className="card-tags">
                   {listNode.interests.split("|").map(( tagItem, index ) => {
                     return(
-                      <span class='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
+                      <span className='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
                     )
                   })}
                 </div>
