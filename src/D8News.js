@@ -147,7 +147,7 @@ class D8News extends Component {
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
-        path: thisNode.node.path + + "?{_src}=news-story",
+        path: thisNode.node.path + "?{_src}=news-story",
         saf: thisNode.node.field_saf,
         interests: thisNode.node.interests
       }));
