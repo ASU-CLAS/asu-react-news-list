@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './D8News.css';
 import Loader from 'react-loader-spinner';
 import { Fade } from 'react-awesome-reveal';
-import { Target } from 'react-popper';
 
 class D8News extends Component {
 
@@ -19,25 +19,83 @@ class D8News extends Component {
   componentDidMount() {
     const feedURL = this.props.dataFromPage.feed
 
-    let interestsGroup = feedURL.split("&").slice(1, 50)
     let finishedList = []
-    console.log(this.props.dataFromPage, "checking for additional data item")
+    //console.log(this.props.dataFromPage, "checking for additional data item")
 
-    //split feedURL as I was getting a bug where if the first interest had no space (e.g. &Generosity) it would refuse to run the app at all. Split and sliced to return original feedURL minus additional interests
-    axios.get(feedURL.split("&").slice(0, 1)).then(response => {
+    let feedTags = feedURL.split(",");
+    let baseFeed = feedTags.shift();
+    console.log(baseFeed);
+    console.log(feedTags);
+
+    let keepTags = []
+    let removeTags = []
+    for (let i = 0; i < feedTags.length; i++){
+      if(feedTags[i][0] == "-") {
+        removeTags.push(feedTags[i].substring(1).toLowerCase())
+      }
+      else {
+        if(feedTags[i][0] == "&") {
+          keepTags.push(feedTags[i].substring(1).toLowerCase())
+        }
+        else {
+          keepTags.push(feedTags[i].toLowerCase())
+        }
+
+      }
+    }
+
+    // Show items with these tags
+    console.log("Show items with these tags");
+    console.log(keepTags);
+
+    // Hide items with these tags
+    console.log("Hide items with these tags");
+    console.log(removeTags);
+
+
+    axios.get(baseFeed).then(response => {
     //Filters through interests property from feed Obj to find matches to tag filters
 
     //splits interest tags from feed data and compares to tags selected by user, and pushes news articles that match selected tags to the array of displayed articles
-    if(interestsGroup.length > 0){
+    if(keepTags.length > 0){
       for (let i = 0; i < response.data.nodes.length; i++){
-        if (response.data.nodes[i].node.interests.split("|").some(interest => interestsGroup.includes(interest))){
+        console.log('process story ------- '+response.data.nodes[i].node.title);
+        //console.log(response.data.nodes[i].node.interests.split("|"))
+        let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
+        allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
+        allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
+        console.log('All tags for this story:')
+        console.log(allNodeTags)
+        if (allNodeTags.some(interest => keepTags.includes(interest.toLowerCase()))){
           finishedList.push(response.data.nodes[i])
+          console.log('matched')
         }
       }
+      //finishedList = response.data.nodes;
     }
     else {
       finishedList = response.data.nodes;
     }
+
+    if(removeTags.length > 0){
+      let newFinishedList = []
+      for (let i = 0; i < finishedList.length; i++){
+        let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
+        allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
+        allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
+        console.log('process story ------- '+response.data.nodes[i].node.title);
+        console.log(finishedList[i].node.interests.split("|"));
+        if (allNodeTags.some(interest => removeTags.includes(interest.toLowerCase()))){
+
+        }
+        else {
+          newFinishedList.push(finishedList[i])
+        }
+      }
+      finishedList = newFinishedList;
+    }
+
+
       console.log("finished array", finishedList)
 
       this.setState({
@@ -78,35 +136,6 @@ class D8News extends Component {
     });
   }
 
-  /*setSafPath = saf => {
-    let path
-    switch (saf) {
-      case 'Global Engagement':
-        path = 'global-engagement'
-        break;
-      case 'Arizona Impact':
-        path = 'arizona-impact'
-        break;
-      case 'Sun Devil Life':
-        path = 'sun-devil-life'
-        break;
-      case 'Creativity':
-        path = 'creativity'
-        break;
-      case 'Discoveries':
-        path = 'discoveries'
-        break;
-      case 'Entrepreneurship':
-        path = 'entrepreneurship'
-        break;
-      case 'Solutions':
-        path = 'solutions'
-        break;
-      default:
-        path = 'asu-news'
-    }
-    return path
-  }*/
 
   setFeedLength = size => {
     if (size === 'Three') {
@@ -185,7 +214,7 @@ class D8News extends Component {
       }
       return(
           <div className="card card-hover" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>  
+            <button onClick={ () => window.open(listNode.path, '_blank')}>
               <div className="row no-gutters">
                 <div className="col-md-4">
                   <img className="card-img h-100" src={listNode.image_url} alt={listNode.image_alt} />

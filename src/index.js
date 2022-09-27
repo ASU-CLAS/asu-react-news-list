@@ -5,10 +5,13 @@ import D8News from './D8News';
 
 let appRoots = document.getElementsByClassName('clas-news-react-base');
 
+console.log("in the app");
+
 for (let element of appRoots) {
   ReactDOM.render(<D8News dataFromPage={element.dataset} />, element);
 }
 
+/*
 var pageCount = 0;
 
 function hasReachedBottom() {
@@ -25,3 +28,4 @@ window.onscroll = function() {
 
   }
 }
+*/

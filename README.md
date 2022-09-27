@@ -1,11 +1,11 @@
-React component for displaying ASU News articles from the asunow.asu.edu [JSON feed](https://asunow.asu.edu/feeds-json/college-liberal-arts-and-sciences). This React component can be used as a stand alone component and it has also been optimized for working inside of a Drupal environment.
+React component for displaying ASU News articles from the asunow.asu.edu [JSON feed](https://news.asu.edu/feeds-json/college-liberal-arts-and-sciences). This React component can be used as a stand alone component and it has also been optimized for working inside of a Drupal environment.
 
 ### Demo: <a href="https://codepen.io/rbruce2/pen/KerjBm" target="blank">ASU News Feed</a>
 
 ## Install (Stand Alone)
 * `git clone https://github.com/ASU-CLAS/asu-react-d8news.git`
 * `yarn` - install all dependencies
-* `yarn start` - run the development server to test the app (Use https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en browser extension to allow CORS)
+* `yarn dev` - run the development server to test the app (Use https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en browser extension to allow CORS)
 * `yarn build` - build project files (Includes React Library- will need to install Bootstrap v4 separately )
 
 
