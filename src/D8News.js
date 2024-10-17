@@ -5,12 +5,13 @@ import './D8News.css';
 import Loader from 'react-loader-spinner';
 import { Fade } from 'react-awesome-reveal';
 
+import * as he from 'he';
+
+
 class D8News extends Component {
 
   state = {
     ourData: [],
-    pages: 0,
-    currentPage: 0,
     isLoaded: false,
     callErr: true,
     errMsg: ''
@@ -24,8 +25,8 @@ class D8News extends Component {
 
     let feedTags = feedURL.split(",");
     let baseFeed = feedTags.shift();
-    console.log(baseFeed);
-    console.log(feedTags);
+    // console.log(baseFeed);
+    // console.log(feedTags);
 
     let keepTags = []
     let removeTags = []
@@ -45,12 +46,12 @@ class D8News extends Component {
     }
 
     // Show items with these tags
-    console.log("Show items with these tags");
-    console.log(keepTags);
+    // console.log("Show items with these tags");
+    // console.log(keepTags);
 
     // Hide items with these tags
-    console.log("Hide items with these tags");
-    console.log(removeTags);
+    // console.log("Hide items with these tags");
+    // console.log(removeTags);
 
 
     axios.get(baseFeed).then(response => {
@@ -59,16 +60,16 @@ class D8News extends Component {
     //splits interest tags from feed data and compares to tags selected by user, and pushes news articles that match selected tags to the array of displayed articles
     if(keepTags.length > 0){
       for (let i = 0; i < response.data.nodes.length; i++){
-        console.log('process story ------- '+response.data.nodes[i].node.title);
+        // console.log('process story ------- '+response.data.nodes[i].node.title);
         //console.log(response.data.nodes[i].node.interests.split("|"))
         let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
-        console.log('All tags for this story:')
-        console.log(allNodeTags)
+        // console.log('All tags for this story:')
+        // console.log(allNodeTags)
         if (allNodeTags.some(interest => keepTags.includes(interest.toLowerCase()))){
           finishedList.push(response.data.nodes[i])
-          console.log('matched')
+          // console.log('matched')
         }
       }
       //finishedList = response.data.nodes;
@@ -83,8 +84,8 @@ class D8News extends Component {
         let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
-        console.log('process story ------- '+response.data.nodes[i].node.title);
-        console.log(finishedList[i].node.interests.split("|"));
+        // console.log('process story ------- '+response.data.nodes[i].node.title);
+        // console.log(finishedList[i].node.interests.split("|"));
         if (allNodeTags.some(interest => removeTags.includes(interest.toLowerCase()))){
 
         }
@@ -95,13 +96,10 @@ class D8News extends Component {
       finishedList = newFinishedList;
     }
 
-
-      console.log("finished array", finishedList)
+      // console.log("finished array", finishedList)
 
       this.setState({
         ourData: finishedList,
-        pages: response.data.pager.pages,
-        currentPage: response.data.pager.page,
         isLoaded: true,
         callErr: false,
       })
@@ -143,7 +141,7 @@ class D8News extends Component {
       return this.state.ourData.slice(0, 3).map(thisNode => (
         {
         nid: thisNode.node.nid,
-        teaser: thisNode.node.clas_teaser,
+        teaser: he.decode(thisNode.node.clas_teaser) || he.decode(thisNode.node.teaser),
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
@@ -155,7 +153,7 @@ class D8News extends Component {
     else {
       return this.state.ourData.map(thisNode => ({
         nid: thisNode.node.nid,
-        teaser: thisNode.node.clas_teaser,
+        teaser: he.decode(thisNode.node.clas_teaser) || he.decode(thisNode.node.teaser),
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
@@ -169,7 +167,7 @@ class D8News extends Component {
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items);
-    console.log(results)
+    // console.log(results)
     let newsItems;
 
     if (this.props.dataFromPage.view === "Cards") {
@@ -193,7 +191,7 @@ class D8News extends Component {
                 <div className="card-tags">
                   {listNode.interests.split("|").map(( tagItem, index ) => {
                     return(
-                      <span className='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
+                      <span className='btn btn-tag btn-tag-alt-white' href='#' key={tagItem}>{tagItem} </span>
                     )
                   })}
                 </div>
