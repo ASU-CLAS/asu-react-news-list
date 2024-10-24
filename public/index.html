@@ -11,7 +11,13 @@
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/bootstrap-asu.min.css">
+    <link rel="stylesheet" href="public/unity-bootstrap-theme.css">
+    <!-- Google Tag Manager ASU Universal-->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KDWN8Z');</script>
 
 
     <!--
@@ -26,6 +32,10 @@
     <title>React App</title>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KDWN8Z"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager ASU Universal -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -41,5 +51,9 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script src="./drupalNews.js"></script>
+    <script>
+      window.initDataLayer();
+      window.initGlobalHeader();
+    </script>
   </body>
 </html>

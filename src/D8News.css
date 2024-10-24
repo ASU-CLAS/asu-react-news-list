@@ -1,5 +1,5 @@
 
-.D8News button {
+.D8News .card-items-container {
     background: none;
     color: inherit;
     border: none;
@@ -19,9 +19,7 @@
   margin-right:4px;
   margin-bottom:4px;
 }
-.D8News .card-tags {
-  display:none;
-}
+
 
 /* List view styles */
 
@@ -83,4 +81,35 @@
 
 .errorCode{
   color: #eeeeee;
+}
+
+/* Horizontal Styles */
+
+.card-horizontal {
+  padding-bottom: 0 !important;
+}
+.card-horizontal > a {
+  --card-img-top-max-width: 100%;
+  --card-img-top-min-width: 100%;
+  min-width: 40%;
+  width: 40%;
+  overflow: hidden;
+}
+
+.card-horizontal .card-img-top {
+  height: auto;
+  max-width: var(--card-img-top-max-width, 40%);
+  min-width: var(--card-img-top-min-width, 40%);
+  aspect-ratio: 2/3;
+  max-height: 400px;
+}
+
+@media (max-width: 767.98px) {
+  .card-horizontal > a {
+    width: 100% !important;
+  }
+  .card-horizontal .card-img-top {
+    height: 160px !important;
+    --card-img-top-max-width: 100%;
+  }
 }

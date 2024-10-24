@@ -167,71 +167,119 @@ class D8News extends Component {
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items);
-    // console.log(results)
     let newsItems;
 
     if (this.props.dataFromPage.view === "Cards") {
-    newsItems = results.map(( listNode, index ) => {
-      let newTeaser = listNode.teaser
-      if(listNode.teaser.length > 120) {
-        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
-        newTeaser += "..."
-      }
-      return(
-          <div className="col col-12 col-lg-4" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>
-              <div className="card card-story card-hover h-100">
-                <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                <div className="card-header">
-                  <h4 className="card-title">{listNode.title}</h4>
-                </div>
-                <div className="card-body">
-                  <p className="card-text text-dark card-teaser">{newTeaser}</p>
-                </div>
-                <div className="card-tags">
-                  {listNode.interests.split("|").map(( tagItem, index ) => {
-                    return(
-                      <span className='btn btn-tag btn-tag-alt-white' href='#' key={tagItem}>{tagItem} </span>
-                    )
-                  })}
+      newsItems = results.map(( listNode, index ) => {
+        let newTeaser = listNode.teaser
+        if(listNode.teaser.length > 120) {
+          newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+          newTeaser += "..."
+        }
+        return(
+          <div className="col col-12 col-md-6 col-lg-4 cards-items-container" key={listNode.nid}>
+            <div 
+              onClick={ () => {
+                window.open(listNode.path, '_blank');
+                dataLayer.push({'event': 'news item clicked', 'url': listNode.path});
+              }}
+              className='card cards-components' 
+              data-ga={listNode.path} 
+              data-ga-name="onclick" 
+              data-ga-event="link" 
+              data-ga-action="click" 
+              data-ga-type="external link" 
+              data-ga-region="main content" 
+              data-ga-section="ASU news"
+            >
+              <a href={listNode.path} target='_blank'>
+                <img className="card-img-top uds-img borderless" src={listNode.image_url} alt={listNode.image_alt} loading='lazy' decoding='async'/>
+                <span className='visually-hidden'>{listNode.title}</span>
+              </a>
+              <div className="card-header">
+                <h3 className="card-title">
+                  <a href={listNode.path}>
+                    {listNode.title}
+                  </a>
+                </h3>
+              </div>
+              <div className="card-body">
+                <p className="card-text text-dark">{newTeaser}</p>
+              </div>
+              <div className="card-buttons">
+                <div className="card-button">
+                  <a href={listNode.path} className="btn btn-maroon" aria-label="Read at ASU News" target='_self'>Read at ASU News</a>
                 </div>
               </div>
+              <div className="card-tags">
+                {listNode.interests.split('|').map(interest => interest?<div className='btn btn-tag btn-tag-alt-gray'>{interest}</div>:<></>)}
+              </div>
 
-            </button>
+            </div>
           </div>
-      )
-    });
-  }
-
-  else {
-    newsItems = results.map(( listNode, index ) => {
-      let newTeaser = listNode.teaser
-      if(listNode.teaser.length > 120) {
-        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
-        newTeaser += "..."
-      }
-      return(
-          <div className="card card-hover" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>
-              <div className="row no-gutters">
-                <div className="col-md-4">
-                  <img className="card-img h-100" src={listNode.image_url} alt={listNode.image_alt} />
-                </div>
-                <div className="col-md-8">
-                    <div className="list-view card-body">
-                      <h3 className="list-view card-title">{listNode.title}
-                        <p className="card-text text-muted">{listNode.interests.split("|").join(", ")}</p>
-                      </h3>
-
+        )
+      });
+    }
+    else {
+      newsItems = results.map(( listNode, index ) => {
+        let newTeaser = listNode.teaser
+        if(listNode.teaser.length > 120) {
+          newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+          newTeaser += "..."
+        }
+        return(
+            <div className="card card-hover card-items-container" key={listNode.nid}>
+              <div onClick={ () => {
+                window.open(listNode.path, '_blank');
+                dataLayer.push({'event': 'news item clicked', 'url': listNode.path});
+                }}
+                className='card cards-components card-story card-horizontal'
+                data-ga-name="onclick"
+                data-ga-event="link"
+                data-ga-action="click"
+                data-ga-type="external link"
+                data-ga-region="main content"
+                data-ga-section="ASU news"
+              > 
+                <a href={listNode.path} target='_blank'>
+                  <img className="card-img-top uds-img borderless w-100" loading='lazy' decoding='async' src={listNode.image_url} alt={listNode.image_alt} />
+                  <span className='visually-hidden'>{listNode.title}</span>
+                </a>
+                <div className="card-content-wrapper">
+                  <div className='card-header'>
+                    <h3 className='card-title'>{listNode.title}</h3>
+                  </div>
+                  <div className='card-body'>
+                    <div>
+                      <p className="card-text text-dark">{he.decode(newTeaser)}</p>
                     </div>
-                 </div>
+                  </div>
+                  <div className="card-buttons">
+                    <div className="card-button">
+                      <a 
+                        href={listNode.path} 
+                        className="btn btn-maroon" 
+                        aria-label='Read at ASU News' 
+                        target='_self' 
+                        data-ga-name="onclick" 
+                        data-ga-event="link" 
+                        data-ga-action="click" 
+                        data-ga-type="external link" 
+                        data-ga-region="main content" 
+                        data-ga-section="ASU news"
+                      >
+                        Read at ASU News</a>
+                    </div>
+                  </div>
+                  <div className="card-tags">
+                    {listNode.interests.split('|').map(interest => interest?<div className='btn btn-tag btn-tag-alt-gray'>{interest}</div>:<></>)}
+                  </div>
+                  </div>
               </div>
-
-            </button>
-          </div>
-      )
-    });
-  }
+            </div>
+        )
+      });
+    }
 
     if ( !this.state.isLoaded ) {
       return(
