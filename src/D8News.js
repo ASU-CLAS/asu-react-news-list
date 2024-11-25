@@ -5,12 +5,13 @@ import './D8News.css';
 import Loader from 'react-loader-spinner';
 import { Fade } from 'react-awesome-reveal';
 
+import * as he from 'he';
+
+
 class D8News extends Component {
 
   state = {
     ourData: [],
-    pages: 0,
-    currentPage: 0,
     isLoaded: false,
     callErr: true,
     errMsg: ''
@@ -24,8 +25,8 @@ class D8News extends Component {
 
     let feedTags = feedURL.split(",");
     let baseFeed = feedTags.shift();
-    console.log(baseFeed);
-    console.log(feedTags);
+    // console.log(baseFeed);
+    // console.log(feedTags);
 
     let keepTags = []
     let removeTags = []
@@ -45,12 +46,12 @@ class D8News extends Component {
     }
 
     // Show items with these tags
-    console.log("Show items with these tags");
-    console.log(keepTags);
+    // console.log("Show items with these tags");
+    // console.log(keepTags);
 
     // Hide items with these tags
-    console.log("Hide items with these tags");
-    console.log(removeTags);
+    // console.log("Hide items with these tags");
+    // console.log(removeTags);
 
 
     axios.get(baseFeed).then(response => {
@@ -59,16 +60,16 @@ class D8News extends Component {
     //splits interest tags from feed data and compares to tags selected by user, and pushes news articles that match selected tags to the array of displayed articles
     if(keepTags.length > 0){
       for (let i = 0; i < response.data.nodes.length; i++){
-        console.log('process story ------- '+response.data.nodes[i].node.title);
+        // console.log('process story ------- '+response.data.nodes[i].node.title);
         //console.log(response.data.nodes[i].node.interests.split("|"))
         let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
-        console.log('All tags for this story:')
-        console.log(allNodeTags)
+        // console.log('All tags for this story:')
+        // console.log(allNodeTags)
         if (allNodeTags.some(interest => keepTags.includes(interest.toLowerCase()))){
           finishedList.push(response.data.nodes[i])
-          console.log('matched')
+          // console.log('matched')
         }
       }
       //finishedList = response.data.nodes;
@@ -83,8 +84,8 @@ class D8News extends Component {
         let allNodeTags = response.data.nodes[i].node.interests.toLowerCase().split("|")
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.news_units.toLowerCase().split("|"))
         allNodeTags = allNodeTags.concat(response.data.nodes[i].node.audiences.toLowerCase().split("|"))
-        console.log('process story ------- '+response.data.nodes[i].node.title);
-        console.log(finishedList[i].node.interests.split("|"));
+        // console.log('process story ------- '+response.data.nodes[i].node.title);
+        // console.log(finishedList[i].node.interests.split("|"));
         if (allNodeTags.some(interest => removeTags.includes(interest.toLowerCase()))){
 
         }
@@ -95,13 +96,10 @@ class D8News extends Component {
       finishedList = newFinishedList;
     }
 
-
-      console.log("finished array", finishedList)
+      // console.log("finished array", finishedList)
 
       this.setState({
         ourData: finishedList,
-        pages: response.data.pager.pages,
-        currentPage: response.data.pager.page,
         isLoaded: true,
         callErr: false,
       })
@@ -143,7 +141,7 @@ class D8News extends Component {
       return this.state.ourData.slice(0, 3).map(thisNode => (
         {
         nid: thisNode.node.nid,
-        teaser: thisNode.node.clas_teaser,
+        teaser: he.decode(thisNode.node.clas_teaser) || he.decode(thisNode.node.teaser),
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
@@ -155,7 +153,7 @@ class D8News extends Component {
     else {
       return this.state.ourData.map(thisNode => ({
         nid: thisNode.node.nid,
-        teaser: thisNode.node.clas_teaser,
+        teaser: he.decode(thisNode.node.clas_teaser) || he.decode(thisNode.node.teaser),
         title: thisNode.node.title,
         image_url: thisNode.node.image_url,
         image_alt: thisNode.node.image_alt,
@@ -169,71 +167,119 @@ class D8News extends Component {
 
   render() {
     let results = this.setFeedLength(this.props.dataFromPage.items);
-    console.log(results)
     let newsItems;
 
     if (this.props.dataFromPage.view === "Cards") {
-    newsItems = results.map(( listNode, index ) => {
-      let newTeaser = listNode.teaser
-      if(listNode.teaser.length > 120) {
-        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
-        newTeaser += "..."
-      }
-      return(
-          <div className="col col-12 col-lg-4" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>
-              <div className="card card-story card-hover h-100">
-                <img className="card-img-top" src={listNode.image_url} alt={listNode.image_alt} />
-                <div className="card-header">
-                  <h4 className="card-title">{listNode.title}</h4>
-                </div>
-                <div className="card-body">
-                  <p className="card-text text-dark card-teaser">{newTeaser}</p>
-                </div>
-                <div className="card-tags">
-                  {listNode.interests.split("|").map(( tagItem, index ) => {
-                    return(
-                      <span className='btn btn-tag btn-tag-alt-white' href='#'>{tagItem} </span>
-                    )
-                  })}
+      newsItems = results.map(( listNode, index ) => {
+        let newTeaser = listNode.teaser
+        if(listNode.teaser.length > 120) {
+          newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+          newTeaser += "..."
+        }
+        return(
+          <div className="col col-12 col-md-6 col-lg-4 cards-items-container" key={listNode.nid}>
+            <div 
+              onClick={ () => {
+                window.open(listNode.path, '_blank');
+                dataLayer.push({'event': 'news item clicked', 'url': listNode.path});
+              }}
+              className='card cards-components' 
+              data-ga={listNode.path} 
+              data-ga-name="onclick" 
+              data-ga-event="link" 
+              data-ga-action="click" 
+              data-ga-type="external link" 
+              data-ga-region="main content" 
+              data-ga-section="ASU news"
+            >
+              <a href={listNode.path} target='_blank'>
+                <img className="card-img-top uds-img borderless" src={listNode.image_url} alt={listNode.image_alt} loading='lazy' decoding='async'/>
+                <span className='visually-hidden'>{listNode.title}</span>
+              </a>
+              <div className="card-header">
+                <h3 className="card-title">
+                  <a href={listNode.path}>
+                    {listNode.title}
+                  </a>
+                </h3>
+              </div>
+              <div className="card-body">
+                <p className="card-text text-dark">{newTeaser}</p>
+              </div>
+              <div className="card-buttons">
+                <div className="card-button">
+                  <a href={listNode.path} className="btn btn-maroon" aria-label="Read at ASU News" target='_self'>Read at ASU News</a>
                 </div>
               </div>
+              <div className="card-tags">
+                {listNode.interests.split('|').map(interest => interest?<div className='btn btn-tag btn-tag-alt-gray'>{interest}</div>:<></>)}
+              </div>
 
-            </button>
+            </div>
           </div>
-      )
-    });
-  }
-
-  else {
-    newsItems = results.map(( listNode, index ) => {
-      let newTeaser = listNode.teaser
-      if(listNode.teaser.length > 120) {
-        newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
-        newTeaser += "..."
-      }
-      return(
-          <div className="card card-hover" key={listNode.nid}>
-            <button onClick={ () => window.open(listNode.path, '_blank')}>
-              <div className="row no-gutters">
-                <div className="col-md-4">
-                  <img className="card-img h-100" src={listNode.image_url} alt={listNode.image_alt} />
-                </div>
-                <div className="col-md-8">
-                    <div className="list-view card-body">
-                      <h3 className="list-view card-title">{listNode.title}
-                        <p className="card-text text-muted">{listNode.interests.split("|").join(", ")}</p>
-                      </h3>
-
+        )
+      });
+    }
+    else {
+      newsItems = results.map(( listNode, index ) => {
+        let newTeaser = listNode.teaser
+        if(listNode.teaser.length > 120) {
+          newTeaser = listNode.teaser.substr(0, listNode.teaser.lastIndexOf(' ', 120))
+          newTeaser += "..."
+        }
+        return(
+            <div className="card card-hover card-items-container" key={listNode.nid}>
+              <div onClick={ () => {
+                window.open(listNode.path, '_blank');
+                dataLayer.push({'event': 'news item clicked', 'url': listNode.path});
+                }}
+                className='card cards-components card-story card-horizontal'
+                data-ga-name="onclick"
+                data-ga-event="link"
+                data-ga-action="click"
+                data-ga-type="external link"
+                data-ga-region="main content"
+                data-ga-section="ASU news"
+              > 
+                <a href={listNode.path} target='_blank'>
+                  <img className="card-img-top uds-img borderless w-100" loading='lazy' decoding='async' src={listNode.image_url} alt={listNode.image_alt} />
+                  <span className='visually-hidden'>{listNode.title}</span>
+                </a>
+                <div className="card-content-wrapper">
+                  <div className='card-header'>
+                    <h3 className='card-title'>{listNode.title}</h3>
+                  </div>
+                  <div className='card-body'>
+                    <div>
+                      <p className="card-text text-dark">{he.decode(newTeaser)}</p>
                     </div>
-                 </div>
+                  </div>
+                  <div className="card-buttons">
+                    <div className="card-button">
+                      <a 
+                        href={listNode.path} 
+                        className="btn btn-maroon" 
+                        aria-label='Read at ASU News' 
+                        target='_self' 
+                        data-ga-name="onclick" 
+                        data-ga-event="link" 
+                        data-ga-action="click" 
+                        data-ga-type="external link" 
+                        data-ga-region="main content" 
+                        data-ga-section="ASU news"
+                      >
+                        Read at ASU News</a>
+                    </div>
+                  </div>
+                  <div className="card-tags">
+                    {listNode.interests.split('|').map(interest => interest?<div className='btn btn-tag btn-tag-alt-gray'>{interest}</div>:<></>)}
+                  </div>
+                  </div>
               </div>
-
-            </button>
-          </div>
-      )
-    });
-  }
+            </div>
+        )
+      });
+    }
 
     if ( !this.state.isLoaded ) {
       return(
