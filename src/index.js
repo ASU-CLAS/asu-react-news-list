@@ -7,5 +7,4 @@ let domNode = document.getElementById("clas-news-react-base");
 
 const root = createRoot(domNode);
 
-var pageCount = 0;
 root.render(<News data={domNode.dataset} />);
